@@ -1,0 +1,19 @@
+get_filename_component(imguizmo_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+include(CMakeFindDependencyMacro)
+
+# imguizmo is hydra here
+# set(imguizmo_INCLUDE_DIR "@CONFIG_INCLUDE_DIRS@")
+
+list(APPEND CMAKE_MODULE_PATH ${imguizmo_CMAKE_DIR})
+
+find_dependency(stb REQUIRED)
+find_dependency(imgui REQUIRED)
+
+list(REMOVE_AT CMAKE_MODULE_PATH -1)
+
+# Library dependencies (contains definitions for IMPORTED targets)
+if(NOT TARGET imguizmo)
+  include("${imguizmo_CMAKE_DIR}/imguizmoTargets.cmake")
+endif()
+
+# set(imguizmo_LIBRARIES "@EXPORT_TARGETS@")
